@@ -1,0 +1,52 @@
+package com.hibernate.utiles;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import com.hibernate.components.ConectorJPA;
+import com.hibernate.entities.Usuario;
+import com.hibernate.interfaces.DAO;
+
+public class Util implements DAO<Usuario, String> {
+
+	@Override
+	public Usuario buscar(String correo) {
+		// TODO Auto-generated method stub
+		Usuario usuario = null;
+		var conector = new ConectorJPA();
+		EntityManager em = conector.getEntityManager();
+		TypedQuery<Usuario> query = em.createQuery(
+				"SELECT cast(AES_DECRYPT(u.clave, :clave) as char(50)) as clave u.fechaActualizacion, u.fechaCreacion FROM Usuario u WHERE nombre = :correo",
+				Usuario.class);
+		// query.setParameter("nombre", "Elmira");
+		query.setParameter("correo", correo);
+		var lstusu = query.getResultList();
+
+		for (Usuario u : lstusu) {
+			System.out.println(new Gson().toJson(u));
+
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean eliminar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean guardar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

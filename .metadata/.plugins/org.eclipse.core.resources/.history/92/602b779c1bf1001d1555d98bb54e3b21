@@ -1,0 +1,74 @@
+package com.hibernate.entities;
+
+import java.sql.Blob;
+import java.time.LocalDate;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
+import com.hibernate.interfaces.UtilidadesFecha;
+@Entity
+@Table(name="usuarios")
+public class Usuario {
+	@Id
+	private String correo;
+	@Lob
+	private Blob clave;
+	@Column(name="fecha_de_actualizacion")
+	private Date fechaActualizacion;
+	@Column(name="fecha_de_creacion")
+	private LocalDate fechaCreacion;
+
+	public Usuario() {}
+
+	public Usuario(String correo, Blob clave, Date fechaActualizacion, LocalDate fechaCreacion) {
+		super();
+		this.correo = correo;
+		this.clave = clave;
+		this.fechaActualizacion = fechaActualizacion;
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	/*@Override
+	public String toString() {
+		return "Usuario [correo=" +  correo + ", clave=" + clave + ", fechaActualizacion=" + fechaActualizacion
+				+ ", fechaCreacion=" + UtilidadesFecha.getFechaAString(fechaCreacion) + "]";
+	}*/
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public Blob getClave() {
+		return clave;
+	}
+
+	public void setClave(Blob clave) {
+		this.clave = clave;
+	}
+
+	public Date getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(Date fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+}

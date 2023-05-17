@@ -1,0 +1,41 @@
+package com.hibernate.utiles;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import com.hibernate.components.ConectorJPA;
+import com.hibernate.entities.Usuario;
+import com.hibernate.interfaces.DAO;
+
+public class Util implements DAO<Usuario, String>{
+	
+	var conector = new ConectorJPA();
+	EntityManager em = conector.getEntityManager();
+
+	@Override
+	public Usuario buscar(String correo) {
+		// TODO Auto-generated method stub
+		Usuario usuario = null;
+		return null;
+	}
+
+	@Override
+	public Boolean eliminar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean guardar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

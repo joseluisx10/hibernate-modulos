@@ -1,0 +1,19 @@
+package com.hibernate.interfaces;
+
+import java.util.List;
+
+public interface DAO<E, K> {
+
+	E buscar(K k);
+
+	// Boolean insertar(E e);
+
+	void eliminar(E e);
+
+	// Boolean actualizar(E e);
+
+	void guardar(E e);
+
+	List<E> listar();
+
+}

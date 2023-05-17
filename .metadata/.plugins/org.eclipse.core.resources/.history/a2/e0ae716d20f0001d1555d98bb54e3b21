@@ -1,0 +1,58 @@
+package com.hibernate.utiles;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import com.hibernate.components.ConectorJPA;
+import com.hibernate.entities.Usuario;
+import com.hibernate.interfaces.DAO;
+
+public class Util implements DAO<Usuario, String> {
+
+	private final String KEY = "JavaWebAPI";
+	
+	@Override
+	public Usuario buscar(String correo) {
+		// TODO Auto-generated method stub
+		Usuario usuario = null;
+		var conector = new ConectorJPA();
+		EntityManager em = conector.getEntityManager();
+		TypedQuery<Usuario> query = em.createQuery(
+				"SELECT cast(AES_DECRYPT(u.clave, :clave) as char(50)) as clave u.fechaActualizacion, u.fechaCreacion FROM Usuario u WHERE nombre = :correo",
+				Usuario.class);
+		query.setParameter("clave", KEY);
+		query.setParameter("correo", correo);
+		usuario = query.getSingleResult();
+
+
+		return usuario;
+	}
+
+	@Override
+	public Boolean eliminar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean guardar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		var conector = new ConectorJPA();
+		EntityManager em = conector.getEntityManager();
+		var tx = em.getTransaction();
+		tx.begin();
+		em.merge(usuario);
+		tx.commit();
+		
+		return null;
+	}
+
+	@Override
+	public List listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

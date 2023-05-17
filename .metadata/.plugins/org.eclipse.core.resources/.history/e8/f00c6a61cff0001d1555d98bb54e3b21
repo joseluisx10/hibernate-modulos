@@ -1,0 +1,23 @@
+package com.hibernate.primerospasos;
+
+import java.sql.Blob;
+import java.util.Date;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import com.hibernate.components.ConectorJPA;
+import com.hibernate.entities.Usuario;
+import com.hibernate.interfaces.DAO;
+
+@Component
+public class initProject implements CommandLineRunner {
+
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		Usuario u = new Usuario("juan@gmail.com", 1234, new Date(),new Date());
+		DAO.guardar(args);
+	}
+
+}
