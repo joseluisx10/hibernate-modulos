@@ -19,10 +19,10 @@ public class initProject implements CommandLineRunner {
 		DAO<Usuario, String> bd = new Util();
 		
 	   //bd.guardar(u);
-	    //bd.eliminar(u);
+	     bd.eliminar(u);
 		
-		Usuario u3= bd.buscar("user3@gmail.com");
-		System.out.println(u3);
+		/*Usuario u3= bd.buscar("juan@gmail.com");
+		System.out.println(u3);*/
 	}
 
 

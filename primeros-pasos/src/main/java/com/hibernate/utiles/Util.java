@@ -3,6 +3,8 @@ package com.hibernate.utiles;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.hibernate.components.ConectorJPA;
@@ -40,15 +42,20 @@ public class Util implements DAO<Usuario, String> {
 	@Override
 	public void eliminar(Usuario usuario) {
 		// TODO Auto-generated method stub
+		//Usuario u = null;
 		var conector = new ConectorJPA();
 		EntityManager em = conector.getEntityManager();
-		// Usuario u = em.find(Usuario.class, usuario.getCorreo());
-		Usuario u = buscar(usuario.getCorreo());
-		var tx = em.getTransaction();
-		tx.begin();
-		em.remove(u);
-		tx.commit();
+		Usuario u = em.find(Usuario.class, usuario.getCorreo());
+		//u = buscar(usuario.getCorreo());
+		EntityTransaction  tx = em.getTransaction();
+		try {
+			tx.begin();
+			em.remove(u);
+			tx.commit();
 
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " No existe la entidad");
+		}
 	}
 
 	@Override
@@ -60,6 +67,16 @@ public class Util implements DAO<Usuario, String> {
 		tx.begin();
 		em.merge(usuario);
 		tx.commit();
+		//OTRA FORMA
+		/*try {
+			tx.begin();
+			em.persist(usuario);	
+			tx.commit();
+		} catch (PersistenceException  e) {
+			tx.rollback();
+			System.out.println(e.getMessage()+ " Clave duplicada, usuario ya existe");
+		}*/
+
 
 	}
 
